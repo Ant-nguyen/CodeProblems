@@ -22,3 +22,32 @@ test = [20,100,10,12,5,13]
 print(increasingTriplet(test))
 
 
+# LeetCode 26
+
+# changes need to happen in place
+# esentially just look for each unique value to add to the next earliest position on the list
+def removeDuplicates(nums) -> int:
+    i = 0
+    for j in range(1,len(nums)):
+        if nums[i] != nums[j]:
+            i+= 1
+            nums[i]=nums[j]
+    return i+1
+
+
+# Leet code 128.  Longest Consecutive Sequence
+def longestConsecutive( nums) -> int:
+    # edge case catch
+    if len(nums)==0:
+        return 0
+    sorts = sorted(nums)
+    hash = {num: 1 for num in nums}
+    for i,num in enumerate(sorts):
+        #Check to see if previous number is sequential
+        if sorts[i-1] == num-1:
+            # take the previous numbers sequential total and add to current
+            hash[num] += hash[num-1]
+    return max(hash.values())
+
+
+
