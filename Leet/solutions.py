@@ -50,4 +50,66 @@ def longestConsecutive( nums) -> int:
     return max(hash.values())
 
 
+# Leet Code 11: Container With Most Water
+def func (arr):
+    l = 0
+    r = len(arr)-1
+    w = r - l
+    low_height = min(arr[l],arr[r])
+    max_area = low_height * w
+    while w != 0:
+        # left?
+        if low_height == arr[l]:
+            l += 1
+            w -= 1
+            low_height = min(arr[l],arr[r])
+            area = low_height*w
+            if area > max_area:
+                max_area = area
+        # right
+        else:
+            r -= 1
+            w -= 1
+            low_height = min(arr[l],arr[r])
+            area = low_height*w
+            if area > max_area:
+                max_area = area
+    return max_area
 
+
+# LeetCode 1679. Max Number of k-sum Pairs
+
+# Brute force way using HashTable:
+
+# class Solution:
+#     def maxOperations(self, nums: List[int], k: int) -> int:
+#         hash = {}
+#         count = 0
+#         for ind,num in enumerate(nums):
+#             if num in hash:
+#                 hash[num].pop(0)
+#                 if len(hash[num]) == 0:
+#                     del hash[num]
+#                 count += 1
+#             else:
+#                 if k-num in hash:
+#                     hash[k-num].append(ind)
+#                 else:
+#                     hash[k-num] = [ind]
+#         return count
+
+# Solution using two Pointers:
+def maxOperations(nums, k: int) -> int:
+    nums.sort()
+    left,right,count = 0,len(nums)-1,0
+    while left < right:
+        if nums[left] + nums[right] == k:
+            count+= 1
+            left += 1
+            right -= 1
+            continue
+        elif nums[left] + nums[right] > k:
+            right -= 1
+        else:
+            left += 1
+    return count
