@@ -113,3 +113,23 @@ def maxOperations(nums, k: int) -> int:
         else:
             left += 1
     return count
+
+
+
+# LeetCode: 1456. Maximum Number of Vowels in a Substring of Given Length
+# Sliding window
+def maxVowels(self, s: str, k: int) -> int:
+    vowels = {"a","e","i","o","u"}
+    count = sum([1 for n in s[0:k] if n in vowels])
+    max = count
+    # starting at k essentially makes i the end of the window and i-k the front!
+    for i in range(k,len(s)):
+        if count == k:
+            return k
+        if s[i] in vowels:
+            count += 1
+        if s[i-k] in vowels:
+            count -= 1
+        if count > max:
+            max = count
+    return max
