@@ -151,3 +151,24 @@ def longestOnes(self, nums: List[int], k: int) -> int:
         else:
             maxCon = max(maxCon,n-l+1)
     return maxCon
+
+
+# Leetcode 1493: Longest subarray of 1's after deleting
+# Window solution? Change window based on it Zero is found.
+def longestSubarray(self, nums: List[int]) -> int:
+    l=r=0
+    maxTotal = 0
+    zero= False
+    for num in nums:
+        r+= num
+        if not num:
+            zero =True
+            l = r
+            r = 0 
+        if r+l > maxTotal:
+            maxTotal = r+l
+
+    if zero:
+        return maxTotal 
+    else:
+        return len(nums)-1
