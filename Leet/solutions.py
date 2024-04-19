@@ -172,3 +172,18 @@ def longestSubarray(self, nums: List[int]) -> int:
         return maxTotal 
     else:
         return len(nums)-1
+    
+
+# Leetcode 2390: removing Stars from a String:
+# Use Stack...
+class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for let in s:
+            if let == "*":
+                stack.pop()
+            else:
+                stack.append(let)
+        return "".join(stack)
+    
+
