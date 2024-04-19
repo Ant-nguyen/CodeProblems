@@ -133,3 +133,21 @@ def maxVowels(self, s: str, k: int) -> int:
         if count > max:
             max = count
     return max
+
+
+# leetcode 1004 : Max Consercutive ones III
+# Window/ two pointer solution
+
+def longestOnes(self, nums: List[int], k: int) -> int:
+    l= maxCon = 0
+    for n in range(len(nums)):
+        # Cheeky way of condesing and if statement and assiment that works because were dealing with
+        # 1 and 0s
+        k -= 1-nums[n]
+        if k <0:
+            if nums[l] == 0:
+                k+=1
+            l+=1
+        else:
+            maxCon = max(maxCon,n-l+1)
+    return maxCon
