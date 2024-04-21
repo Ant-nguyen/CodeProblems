@@ -217,3 +217,23 @@ def closeStrings(self, word1: str, word2: str) -> bool:
     first = sorted(one.values())
     second = sorted(two.values())
     return first == second and set(one.keys()) == set(two.keys())
+
+
+# Leetcode 2352: Equal Row and col Pairs
+
+def equalPairs(grid) -> int:
+    count = 0
+    hash = {}
+    # Make rows
+    for row in grid:
+        if tuple(row) not in hash:
+            hash[tuple(row)] = 1
+        else:
+            hash[tuple(row)] += 1
+    for i in range(len(grid)):
+        # Make columns 
+        col = [grid[j][i] for j in range(len(grid))]
+        # Check if they are there. 
+        if tuple(col) in hash:
+            count += hash[tuple(col)]
+    return count
