@@ -201,3 +201,19 @@ class Solution:
             curr = curr.next
             prev.next = temp
         return prev
+    
+
+
+
+# leetcode 1657: Determine if two strings are close:
+import collections
+
+def closeStrings(self, word1: str, word2: str) -> bool:
+    if len(word1) != len(word2):
+        return False
+    one = collections.Counter(word1)
+    two = collections.Counter(word2)
+    
+    first = sorted(one.values())
+    second = sorted(two.values())
+    return first == second and set(one.keys()) == set(two.keys())
