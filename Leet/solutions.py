@@ -188,10 +188,10 @@ class Solution:
     
 
 # Leetcode 206: Reverse Linked list:
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev,curr = None,head
@@ -237,3 +237,34 @@ def equalPairs(grid) -> int:
         if tuple(col) in hash:
             count += hash[tuple(col)]
     return count
+
+
+# Leetcode 328: odd even linked list
+
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        odd = []
+        even =[]
+        x = 1
+        curr = head
+        while curr:
+            if x % 2:
+                odd.append(curr)
+            else:
+                even.append(curr)
+            x += 1
+            curr = curr.next
+        for i in range(len(odd)):
+            try:           
+                odd[i].next = odd[i+1]
+            except:
+                if even == []:
+                    odd[i].next = None
+                else:
+                    odd[i].next = even[0]
+        for i in range(len(even)):
+            try:
+                even[i].next = even[i+1]
+            except:
+                even[i].next = None
+        return head
