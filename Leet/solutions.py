@@ -268,3 +268,14 @@ class Solution:
             except:
                 even[i].next = None
         return head
+    
+
+# Leetcode 2130 Maxmimum Twin Sum of a Linked list
+def pairSum(head: ListNode) -> int:
+    collection = []
+    curr = head
+    while curr:
+        collection.append(curr.val)
+        curr = curr.next
+    mid = len(collection)//2
+    return max([collection[i] + collection[0-(i+1)] for i in range(mid)])
