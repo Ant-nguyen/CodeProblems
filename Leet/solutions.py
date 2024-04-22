@@ -308,3 +308,27 @@ class RecentCounter:
         while self.counter[0] not in range(t-3000,t+1):
             self.counter.pop(0)
         return len(self.counter)
+    
+
+# Leeet code 394: Decode String
+# Add each char in the string to the stack, if it is "]", pop from the back until we get to [
+# There we look for the number 
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        for char in s:
+            if char != "]":
+                stack.append(char)
+            else:
+                sub = ""
+                num = ""
+                while stack[-1] != "[":
+                    #  Note that since we are going backwards from the stack, order is reverse
+                    #  hence the pop before the sub
+                    sub= stack.pop() + sub
+                stack.pop()
+                # while Stack is a clever way to make sure the list is not empty.
+                while stack and stack[-1].isdigit():
+                    num = stack.pop() + num
+                stack.append(int(num)*sub)
+        return "".join(stack)
