@@ -296,3 +296,15 @@ def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
             mid = mid.next
     before.next = mid.next
     return head
+
+# Leetcode 933 : Number of Recent Call
+class RecentCounter:
+
+    def __init__(self):
+        self.counter = []
+        
+    def ping(self, t: int) -> int:
+        self.counter.append(t)
+        while self.counter[0] not in range(t-3000,t+1):
+            self.counter.pop(0)
+        return len(self.counter)
