@@ -279,3 +279,20 @@ def pairSum(head: ListNode) -> int:
         curr = curr.next
     mid = len(collection)//2
     return max([collection[i] + collection[0-(i+1)] for i in range(mid)])
+
+# Leetcode 2095. Delete the middle node of a linked list
+def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    if head.next == None:
+        return None
+    curr = head
+    before = head
+    mid = head
+    x = 1
+    while curr:
+        curr = curr.next
+        x+= 1
+        if x%2:
+            before = mid
+            mid = mid.next
+    before.next = mid.next
+    return head
