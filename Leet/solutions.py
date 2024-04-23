@@ -332,3 +332,41 @@ class Solution:
                     num = stack.pop() + num
                 stack.append(int(num)*sub)
         return "".join(stack)
+    
+
+# Leetcode 649. Dota2 Senate
+    def predictPartyVictory(self, senate: str) -> str:
+        queue = []
+        r= 0
+        d = 0
+        for s in senate:
+            if s == "R":
+                r+=1
+                queue.append("R")
+            else:
+                d+=1
+                queue.append("D")
+        while r and d:
+            if queue[0] == "R":
+                queue.pop(queue.index("D"))
+                d-=1
+                queue.append(queue.pop(0))
+            else:
+                queue.pop(queue.index("R"))
+                r-=1
+                queue.append(queue.pop(0))
+        if r:
+            return "Radiant"
+        else:
+            return "Dire"
+
+# Leetcode 104: Max depth of Binary Tree
+# Use recursion.
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root == None:
+            return 0
+        depth_left = self.maxDepth(root.left)
+        depth_right = self.maxDepth(root.right)
+        return 1+ max(depth_left,depth_right)
