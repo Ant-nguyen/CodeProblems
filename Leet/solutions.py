@@ -370,3 +370,42 @@ class Solution:
         depth_left = self.maxDepth(root.left)
         depth_right = self.maxDepth(root.right)
         return 1+ max(depth_left,depth_right)
+    
+
+# LeetCode 872:  Leaf-Similar Trees
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def ends_of_tree(tree):
+            if tree == None:
+                return ""
+            if tree.right == None and tree.left == None:
+                return f".{tree.val}."
+            left = ends_of_tree(tree.left)
+            right = ends_of_tree(tree.right)
+            return left + right
+        return ends_of_tree(root1) == ends_of_tree(root2)
+    
+
+# LeetCode 1448 Count Good Nodes in BT
+
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Note the self.counter allowed us to have a static variable to refer to during recursion. 
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        self.counter = 0
+        def goodChecker(root: TreeNode,high = float("-inf")):
+            if root == None:
+                return 
+            high = max(root.val,high)
+            goodChecker(root.left,high)
+            goodChecker(root.right,high)
+            if high == root.val:
+                self.counter += 1
+        goodChecker(root)
+        return self.counter
