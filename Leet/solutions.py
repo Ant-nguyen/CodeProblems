@@ -409,3 +409,28 @@ class Solution:
                 self.counter += 1
         goodChecker(root)
         return self.counter
+    
+
+# LeetCode 39. Combination sum
+# Recursion needed, note the need to copy list
+# Every recursion has a split, this ensure combinations ( order does not matter)
+# One where it repeats current array and the other where it can not include any in the current array.
+# Solution from neetcode. PRACTICE to learn
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+
+        def recursion(i,current,total):
+            if total == target:
+                result.append(current.copy())
+                return
+            if i >= len(candidates) or total > target:
+                return
+            current.append(candidates[i])
+            recursion(i,current,total+candidates[i])
+            current.pop()
+            recursion(i+1,current,total)
+        recursion(0,[],0)
+        return result
+        
