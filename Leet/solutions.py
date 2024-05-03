@@ -434,3 +434,33 @@ class Solution:
         recursion(0,[],0)
         return result
         
+
+# LeetCode 437 Path Sum III
+# Using a hashmap and dfs rescursion we go through the tree.
+# Adding new totals as we go down the tree to the hash map, each key added can be though as a sub path
+# We essentailly check how different our current total is to the target, if the difference
+# is a previous total it means the current path minus the previous path total would be target
+# and that would mean we add to our count.
+# We also check everytime if the current total equals the target
+
+
+from collections import defaultdict
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        if not root:
+            return 0 
+        self.count, hash = 0,defaultdict(int)
+        def dfs(root,total):
+            if not root:
+                return
+            if total == targetSum:
+                self.count += 1
+            self.count += hash[total-targetSum]
+            hash[total] += 1
+            if root.left:
+                dfs(root.left,total+root.left.val)
+            if root.right:
+                dfs(root.right,total+root.right.val)
+            hash[total] -= 1
+        dfs(root,root.val)
+        return self.count
