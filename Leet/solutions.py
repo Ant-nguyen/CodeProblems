@@ -464,3 +464,23 @@ class Solution:
             hash[total] -= 1
         dfs(root,root.val)
         return self.count
+    
+# LeetCode 236 Lowest Common Ancestor of Binary tree
+# Depth first search recurssion to see if a node is any of the targets.
+# As we go down we are looking left and right 
+# when we find a target, all the previous recusion calls look t see if they ever found
+# the other target on their opposing side search. If not we'll return the node target, if
+# it does find another target on the other side, we return that node. Recusion loop will
+# eventually go back to our root and return our solution
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root == None or root == q or root == p:
+            return root
+        
+        left = self.lowestCommonAncestor(root.left,p,q)
+        right = self.lowestCommonAncestor(root.right,p,q)
+
+        if left and right:
+            return root
+        return left or right
