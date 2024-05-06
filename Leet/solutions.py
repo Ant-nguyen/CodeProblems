@@ -484,3 +484,25 @@ class Solution:
         if left and right:
             return root
         return left or right
+    
+
+# Leetcode 199. Binary Tree Right side view
+# Breadth first search means we use a queue!
+# In our solution we use a hashmap and a queue, the queue consist of each node and we keep track of their 
+# height. Due to the oddering of how we add to the queue for each height, the furthest right node
+# will be last to be added to our hash map. We then take all the heights in our map
+# and return it in ascending order.
+
+def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    if not root:
+        return []
+    dicts = {}
+    queue = [(root,0)]
+    while queue:
+        curr = queue.pop(0)
+        dicts[curr[1]] = curr[0].val
+        if curr[0].left:
+            queue.append((curr[0].left,curr[1]+1))
+        if curr[0].right:
+            queue.append((curr[0].right,curr[1]+1))
+    return [dicts[key] for key in sorted(dicts.keys())]
