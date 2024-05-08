@@ -506,3 +506,28 @@ def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if curr[0].right:
             queue.append((curr[0].right,curr[1]+1))
     return [dicts[key] for key in sorted(dicts.keys())]
+
+# 1161 Max level Sum of BT
+
+def maxLevelSum( root: Optional[TreeNode]) -> int:
+    cur_level = 1
+    max_level = 1
+    cur_max = float("-inf")
+    cur_total = root.val
+    queue = [(root,1)]
+    while queue:
+        curr = queue.pop(0)
+        if curr[1] != cur_level:
+            if cur_total > cur_max:
+                max_level = cur_level
+                cur_max = cur_total
+            cur_level = curr[1]
+            cur_total = 0 
+        cur_total += curr[0].val
+        if curr[0].left:
+            queue.append((curr[0].left,curr[1]+1))
+        if curr[0].right:
+            queue.append((curr[0].right,curr[1]+1))
+    if cur_total > cur_max:
+        return cur_level
+    return max_level
