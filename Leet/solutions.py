@@ -531,3 +531,16 @@ def maxLevelSum( root: Optional[TreeNode]) -> int:
     if cur_total > cur_max:
         return cur_level
     return max_level
+
+# Leetcode 841: keys and rooms
+def canVisitAllRooms( rooms: List[List[int]]) -> bool:
+    hashm = {}
+    stack = [0]
+    while stack:
+        num = stack.pop(0)
+        hashm[num] = None
+        keys = rooms[num]
+        for k in keys:
+            if k not in hashm:
+                stack.append(k)
+    return len(hashm) == len(rooms)
