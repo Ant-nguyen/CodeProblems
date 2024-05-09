@@ -10,3 +10,10 @@ select firstName, lastname,city, state
 from Person
 left outer join Address 
 on (Person.personId = Address.personId)
+
+
+-- Leet code 182. Duplicate email
+select email 
+from Person 
+group by email
+having count(*) > 1
