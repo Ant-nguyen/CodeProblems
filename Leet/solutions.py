@@ -544,3 +544,23 @@ def canVisitAllRooms( rooms: List[List[int]]) -> bool:
             if k not in hashm:
                 stack.append(k)
     return len(hashm) == len(rooms)
+
+# Leet code 1466: all paths lead to City Zero
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        targets = {0}
+        count = 0
+        collec = []
+        while connections:
+            a,b = connections.pop()
+            if b in targets:
+                targets.add(a)
+            elif a in targets:
+                count += 1
+                targets.add(b)
+            else:
+                collec.append([a,b])
+            if not connections:
+                connections =  collec
+                collec = []
+        return count

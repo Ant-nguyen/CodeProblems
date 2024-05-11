@@ -6,7 +6,7 @@ on (p.personId = a.personId)
 
 
 -- or
-select firstName, lastname,city, state
+select firstName, lastname, city, state
 from Person
 left outer join Address 
 on (Person.personId = Address.personId)
