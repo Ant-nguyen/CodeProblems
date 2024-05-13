@@ -564,3 +564,18 @@ class Solution:
                 connections =  collec
                 collec = []
         return count
+    
+
+# Leetcode 66 Plus one:
+def plusOne(self, digits: List[int]) -> List[int]:
+    digits[-1] += 1
+    for ind in reversed(range(len(digits))):
+        if digits[ind] >9:
+            digits[ind] = 0
+            if ind == 0:
+                digits = [1] + digits
+            else:
+                digits[ind-1]+=1
+        else:
+            break       
+    return digits
