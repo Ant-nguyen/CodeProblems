@@ -579,3 +579,34 @@ def plusOne(self, digits: List[int]) -> List[int]:
         else:
             break       
     return digits
+
+
+# Leetcode 300
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        result = [float("inf")]
+        for num in nums:
+            for i in range(len(result)):
+                if num <= result[i]:
+                    result[i] = num
+                    break
+                if i == len(result)-1:
+                    result.append(num)
+                    break
+        return len(result)
+
+# Faster solution that has same logic but uses a bisect to make it FASTER
+from bisect import bisect_left
+# bisect returns where a num should inserted to allow for increaseing order.
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        sub = [nums[0]]
+
+        for num in nums[1:]:
+            if num > sub[-1]:
+                sub.append(num)
+            else:
+                i = bisect_left(sub, num)
+                sub[i] = num
+
+        return len(sub)
