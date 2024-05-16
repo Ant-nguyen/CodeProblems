@@ -595,7 +595,7 @@ class Solution:
                     break
         return len(result)
 
-# Faster solution that has same logic but uses a bisect to make it FASTER
+# Faster solution that has same logic but uses a bisect to make it much FASTER
 from bisect import bisect_left
 # bisect returns where a num should inserted to allow for increaseing order.
 class Solution:
@@ -610,3 +610,22 @@ class Solution:
                 sub[i] = num
 
         return len(sub)
+    
+
+
+# Leetcode 547 Number of provinces
+def findCircleNum(isConnected: List[List[int]]) -> int:
+    unvisited = {n for n in range(len(isConnected))}
+    count = 0
+    while unvisited:
+        stack = [unvisited.pop()]
+        while stack:
+            cur = isConnected[stack.pop()]
+            copy = list(unvisited)
+            for n in copy:
+                if cur[n]:
+                    stack.append(n)
+                    unvisited.remove(n)
+        count += 1
+    return count
+
