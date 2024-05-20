@@ -629,3 +629,24 @@ def findCircleNum(isConnected: List[List[int]]) -> int:
         count += 1
     return count
 
+# Leet code 1372: Longest zig zag
+# Using helper and keeping track of left/right to keep on adding. to the recusion if needed.
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        return max(self.helper(root.right,False,0),self.helper(root.left,True,0))
+    
+    def helper(self,node,isLeft,depth):
+        if not node:
+            return depth
+        if isLeft:
+            depth = max(
+                depth,
+                self.helper(node.right,False,depth+1),
+                self.helper(node.left,True,0))
+        else:
+            depth = max(
+                depth,
+                self.helper(node.left,True,depth+1),
+                self.helper(node.right,False,0))
+        
+        return depth
