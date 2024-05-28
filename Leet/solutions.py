@@ -388,11 +388,11 @@ class Solution:
 
 # LeetCode 1448 Count Good Nodes in BT
 
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=None, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 # Note the self.counter allowed us to have a static variable to refer to during recursion. 
@@ -650,3 +650,32 @@ class Solution:
                 self.helper(node.right,False,0))
         
         return depth
+
+
+# Leetcode 399
+
+from collections import defaultdict
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        equa = defaultdict(list)
+        for ind,eq in enumerate(equations):
+            x,y = eq
+            equa[x].append((y,values[ind]))
+            equa[y].append((x,1/values[ind]))
+        
+        def bfs(src,target):
+            if src not in equa or target not in equa:
+                return -1
+            q,visit = deque(),{src}
+            q.append([src,1])
+            while q:
+                num,cur = q.popleft()
+                if num == target:
+                    return cur
+                for nei,rate in equa[num]:
+                    if nei not in visit:
+                        q.append([nei,cur*rate])
+                        visit.add(nei)
+            return -1
+        return [bfs(eq[0],eq[1]) for eq in queries]
+
