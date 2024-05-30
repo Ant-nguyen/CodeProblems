@@ -679,3 +679,27 @@ class Solution:
             return -1
         return [bfs(eq[0],eq[1]) for eq in queries]
 
+# Leetcode 374
+
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        predict = math.ceil(n/2)
+        high = n
+        low = 0
+        api_guess = guess(predict)
+        while api_guess:
+            if api_guess == 1:
+                low = predict
+                predict = math.ceil((high+predict)/2)
+            else:
+                high = predict
+                predict = math.ceil((predict+low)/2)
+            api_guess = guess(predict)
+        return predict
