@@ -703,3 +703,22 @@ class Solution:
                 predict = math.ceil((predict+low)/2)
             api_guess = guess(predict)
         return predict
+
+# Leet 1926
+from collections import deque
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        que = deque([[*entrance,0]])
+        maze[entrance[0]][entrance[1]] = "+"
+        h, w = len(maze),len(maze[0])
+        while que:
+            cur= que.popleft()
+            i,j ,step = cur
+            for pair in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+                x,y = pair
+                if x in range(0,h) and y in range(0,w) and maze[x][y] ==".":
+                    if x == 0 or x == h-1 or y == 0 or y == w-1:
+                        return step +1
+                    que.append([x,y,step+1])
+                    maze[x][y] = "+"
+        return -1
