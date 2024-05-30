@@ -722,3 +722,30 @@ class Solution:
                     que.append([x,y,step+1])
                     maze[x][y] = "+"
         return -1
+
+
+# Leetcode 994
+from collections import deque
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        queue = deque()
+        ones = set()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 2:
+                    queue.append([i,j,0])
+                if grid[i][j] == 1:
+                    ones.add((i,j))
+        if not queue or not ones:
+            if ones:
+                return -1
+            return 0
+        while queue:
+            i,j,count = queue.popleft()
+            for x,y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+                if (x,y) in ones:
+                    ones -= {(x,y)}
+                    if len(ones) == 0:
+                        return count+1
+                    queue.append([x,y,count+1])      
+        return -1
