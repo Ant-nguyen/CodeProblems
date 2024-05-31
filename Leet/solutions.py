@@ -749,3 +749,43 @@ class Solution:
                         return count+1
                     queue.append([x,y,count+1])      
         return -1
+
+# Leetcode 2300. Successful Pairs of Spells and Potions
+import math
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        sorted_potions = sorted(potions)
+        n = len(potions)
+        solution = []
+        def dup_check(ind,target):
+            if sorted_potions[0] == target:
+                return 0
+            i = ind
+            while sorted_potions[i]== target and i != 0:
+                i -=1
+            return i+1
+        for spell in spells:
+            target = math.ceil(success/spell)
+            l,h = 0,n-1
+            ind = None
+            if sorted_potions[-1]>= target:
+                while l<=h :
+                    middle = (l+h)//2
+                    if sorted_potions[middle] == target:
+                        ind = dup_check(middle,target)
+                        break
+                    elif sorted_potions[middle] > target:
+                        h = middle-1
+                    else:
+                        l = middle+1
+            else:
+                solution.append(0)
+                continue
+            if ind != None:
+                solution.append(n-ind)
+            else:
+                if h ==1 and sorted_potions[0] >= target:
+                    solution.append(n)
+                else:
+                    solution.append(n-l)
+        return solution
